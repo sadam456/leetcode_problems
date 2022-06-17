@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+    //using an unordered map to map the frequency of occurences of each number with its no.of ocuurences;
+        unordered_map<int,int> freq; //int-> first: number, int-> second: value
+        for(int i : nums){
+            freq[i]++;
+        }
+        //checking wheather the frequency value of a number greater than 1;
+        for(auto ab: freq){
+            if(ab.second >1){
+               return true;
+            }
+        }
+      
+        return false;
+    }
+};
