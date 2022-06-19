@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+      auto start = products.begin();
+      sort(start,products.end());
+      vector<vector<string>> ans;
+      vector<string> temp;
+      string curr="";
+      for(auto c : searchWord){
+          curr+=c;
+          temp.clear(); // this must be there as we are going to print new vector at each time(string that contains curr as prefix), so we have clear the past values.
+                           or else it will append the new values in to it.
+                           
+          start = lower_bound(start,products.end(),curr); //storing the first occurence in the start
+          for(int i=0;i<3 && start+i!=products.end();i++){
+              string s = *(start+i); //storing the value of the pointer 
+              if(s.find(curr))break;
+              temp.push_back(s);
+          }
+          ans.push_back(temp);
+      }
+         return ans;
+    }
+};
+
+//Explanation:
+Given:
+[fre,abe,fte,abc,fsk,dcr,fhk]
+sorted:
+[abc,abe,dcr,fhk,fre,fte,fsk] if we found the first occurence of  f then we can avoid the elements 1,2,3 as they are lexicographically sorted.
+in order to find the first occurence optimally we use binarySearch lower_bound(); return the pointer to the first occcurence.
+in order to find out the value in the pointer pointing, use *(start+i) gives the value, where as start is a pointer.
