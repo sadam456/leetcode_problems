@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> mp;//Taking map as mp
+        for(int i=0;i<nums1.size();i++){
+            mp[nums1[i]]++;        
+        }
+        vector<int> v;             
+        for(int i=0;i<nums2.size();i++){
+            if(mp.find([nums2[i]])!=mp.end()){  
+                v.push_back(nums2[i]);  
+                mp[nums2[i]]--;
+                if(mp[nums2[i]==0) mp.erase(nums2[i]); //its optional
+            }
+        }
+        return v;                 
+    }
+};
+
+//EXPLANATION:
+Here we are using unordered_map() as it is very usefull in searching an element which takes unit time.
+
+Storing the value of nums1 in mp(unordered map)
+create an another vector to store the result
+cheking if element present in nums2 with the find() function
+push back the found element in vector v
+decreasing the int value to check other values in nums2
+returning the resultant vector
